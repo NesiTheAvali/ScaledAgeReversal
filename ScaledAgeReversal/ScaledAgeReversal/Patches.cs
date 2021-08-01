@@ -109,6 +109,7 @@ namespace BetterAgeScaler
 
 
                     long num2 = num * 60000;
+
                     long estimatedDemandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks * relativeLifespan, 72000000L)) + num2;
                     long demandAge = estimatedDemandAge / 3600000L < 55 ? 3600000L * 55 : estimatedDemandAge;
 #if IS_DEBUG_WITH_RVC
