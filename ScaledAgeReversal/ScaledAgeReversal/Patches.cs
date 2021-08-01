@@ -37,7 +37,7 @@ namespace BetterAgeScaler
 
         
         //Because waiting is boring :v
-        [DebugAction("Better Age Sclaer", "Increment pawn age by +1 year",actionType = DebugActionType.ToolMapForPawns,allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        [DebugAction("Better Age Scaler", "Increment pawn age by +1 year",actionType = DebugActionType.ToolMapForPawns,allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SetPawnAge(Pawn p)
         {
             long ageTicks = p.ageTracker.AgeBiologicalTicks;
