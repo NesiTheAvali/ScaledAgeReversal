@@ -42,23 +42,24 @@ namespace BetterAgeScaler
         {
             long ageTicks = p.ageTracker.AgeBiologicalTicks;
             SetVar("ageBiologicalTicksInt", ageTicks + (3600000L), obj: p.ageTracker);
-            /*long demandAge = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: p.ageTracker);
-            Log.Message($"{p.Name}, age demanded at: {demandAge / 3600000L}");*/
+
 #if IS_DEBUG_WITH_RVC
+            long demandAge = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: p.ageTracker);
+            Log.Message($"{p.Name}, age demanded at: {demandAge / 3600000L}");
             RimValiCore.RimValiUtility.InvokeMethodTMP("BirthdayBiological", p.ageTracker, new object[0]);
             RimValiCore.RimValiUtility.InvokeMethodTMP("RecalculateLifeStageIndex",p.ageTracker, new object[0]);
             RimValiCore.RimValiUtility.InvokeMethodTMP("CheckAgeReversalDemand", p.ageTracker, new object[0]);
       
 #endif
         }
-        [DebugAction("Better Age Sclaer", "Increment pawn age by +5 years", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        [DebugAction("Better Age Scaler", "Increment pawn age by +5 years", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SetPawnAgeFive(Pawn p)
         {
             long ageTicks = p.ageTracker.AgeBiologicalTicks;
             SetVar("ageBiologicalTicksInt", ageTicks + (3600000L*5), obj: p.ageTracker);
-            /*long demandAge = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: p.ageTracker);
-            Log.Message($"{p.Name}, age demanded at: {demandAge / 3600000L}");*/
 #if IS_DEBUG_WITH_RVC
+            long demandAge = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: p.ageTracker);
+            Log.Message($"{p.Name}, age demanded at: {demandAge / 3600000L}");
             RimValiCore.RimValiUtility.InvokeMethodTMP("BirthdayBiological", p.ageTracker, new object[0]);
             RimValiCore.RimValiUtility.InvokeMethodTMP("RecalculateLifeStageIndex", p.ageTracker, new object[0]);
             RimValiCore.RimValiUtility.InvokeMethodTMP("CheckAgeReversalDemand", p.ageTracker, new object[0]);
