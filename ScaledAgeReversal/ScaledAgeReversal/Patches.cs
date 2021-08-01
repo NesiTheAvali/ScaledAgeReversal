@@ -2,14 +2,9 @@
 //Also adds some other debug stuff.
 #define IS_DEBUG_WITH_RVC
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using HarmonyLib;
 using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace BetterAgeScaler
@@ -37,7 +32,7 @@ namespace BetterAgeScaler
 
         
         //Because waiting is boring :v
-        [DebugAction("Better Age Sclaer", "Increment pawn age by +1 year",actionType = DebugActionType.ToolMapForPawns,allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        [DebugAction("Better Age Scaler", "Increment pawn age by +1 year",actionType = DebugActionType.ToolMapForPawns,allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SetPawnAge(Pawn p)
         {
             long ageTicks = p.ageTracker.AgeBiologicalTicks;
@@ -90,11 +85,13 @@ namespace BetterAgeScaler
                     
                     //Get's the race's lifespan relative to the human lifespan
                     long relativeLifespan =(long)(lifespan / ThingDefOf.Human.race.lifeExpectancy);
+                    //long relativeAge = relativeLifespan - (long)p.ageTracker.AgeBiologicalYears;
                     int num;
 
                     //Basically the vanilla operations, just re-done here to make sure we're getting a totally accurate number
                     long ageReversalDemandedAtAgeTicks = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: __instance);
 #if IS_DEBUG_WITH_RVC
+                    Log.Message($"Expected multiplier for {p.Name}: {relativeLifespan}");
                     Log.Message($"Before patch: {p.Name}, age demanded at: {ageReversalDemandedAtAgeTicks/ 3600000L}");
 #endif
                     if (reason == Pawn_AgeTracker.AgeReversalReason.Recruited)
@@ -112,8 +109,8 @@ namespace BetterAgeScaler
 
 
                     long num2 = num * 60000;
-
-                    long demandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks*relativeLifespan, 72000000L)) + num2;
+                    long estimatedDemandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks * relativeLifespan, 72000000L)) + num2;
+                    long demandAge = estimatedDemandAge / 3600000L < 55 ? 3600000L * 55 : estimatedDemandAge;
 #if IS_DEBUG_WITH_RVC
                     Log.Message($"{p.Name}, age demanded at: {demandAge/ 3600000L}");
 #endif
