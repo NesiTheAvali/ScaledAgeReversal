@@ -93,14 +93,14 @@ namespace BetterAgeScaler
                     long ageReversalDemandedAtAgeTicks = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: __instance);
 #if IS_DEBUG_WITH_RVC
                     Log.Message($"Expected multiplier for {p.Name}: {relativeLifespan}");
-                    Log.Message($"Before patch: {p.Name}, age demanded at: {ageReversalDemandedAtAgeTicks/ 3600000L}");
+                    Log.Message($"Before patch {p.Name} demanded reversal at: {ageReversalDemandedAtAgeTicks/ 3600000L}");
 #endif
 
                     //Here's where we do our magical stuff that scales it.
                     long estimatedDemandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks * relativeLifespan, 72000000L)) + num;
                     long demandAge = estimatedDemandAge / 3600000L < 55 ? 3600000L * 55 : estimatedDemandAge;
 #if IS_DEBUG_WITH_RVC
-                    Log.Message($"{p.Name}, age demanded at: {demandAge/ 3600000L}");
+                    Log.Message($"After patch {p.Name} demanded reversal at: {demandAge/ 3600000L}");
 #endif
                     //Vanilla
                     if (reason == Pawn_AgeTracker.AgeReversalReason.Recruited && demandAge < ageReversalDemandedAtAgeTicks)
