@@ -80,8 +80,6 @@ namespace BetterAgeScaler
                 if (p != null && p.MapHeld!=null)
                 {
                     long relativeLifespan =(long)(p.RaceProps.lifeExpectancy / ThingDefOf.Human.race.lifeExpectancy);
-                    //long relativeAge = relativeLifespan - (long)p.ageTracker.AgeBiologicalYears;
-                    
                     
                     //Basically the same as vanilla stuff right here. Just got to get it again.
                     int num = (reason == Pawn_AgeTracker.AgeReversalReason.Recruited ? 
