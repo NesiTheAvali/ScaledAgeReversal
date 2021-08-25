@@ -92,7 +92,7 @@ namespace BetterAgeScaler
                   
                     long ageReversalDemandedAtAgeTicks = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: __instance);
 #if IS_DEBUG_WITH_RVC
-                    Log.Message($"Expected multiplier for {p.Name}: {relativeLifespan}");
+                    Log.Message($"Expected age scale multiplier for {p.Name}: {relativeLifespan}");
                     Log.Message($"Before patch {p.Name} demanded reversal at: {ageReversalDemandedAtAgeTicks/ 3600000L}");
 #endif
 
