@@ -15,18 +15,12 @@ namespace BetterAgeScaler
         //These functions are in rimvalicore, but i decided to put them here too.
         public static T GetVar<T>(string fieldName, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, object obj = null)
         {
-
-
             return (T)obj.GetType().GetField(fieldName, flags).GetValue(obj);
         }
 
-        public static bool SetVar<T>(string fieldName, T val, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, object obj = null)
+        public static void SetVar<T>(string fieldName, T val, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic, object obj = null)
         {
-
             obj.GetType().GetField(fieldName, flags).SetValue(obj, val);
-
-
-            return true;
         }
 
 
@@ -67,7 +61,6 @@ namespace BetterAgeScaler
             Harmony h = new Harmony("NesiAvali.BetterBiosculptorScaler.Patches");
             h.PatchAll();
             Log.Message("Better Biosculptor Scaler patch done successfully!");
-
         }
 
         [HarmonyPatch(typeof(Pawn_AgeTracker), "ResetAgeReversalDemand")]
