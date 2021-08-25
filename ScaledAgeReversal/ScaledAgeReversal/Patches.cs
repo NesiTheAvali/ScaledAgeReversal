@@ -79,38 +79,25 @@ namespace BetterAgeScaler
                 Pawn p = GetVar<Pawn>("pawn",obj:__instance);
                 if (p != null && p.MapHeld!=null)
                 {
-                  
-
-                    float lifespan = p.RaceProps.lifeExpectancy;
-                    
-                    //Get's the race's lifespan relative to the human lifespan
-                    long relativeLifespan =(long)(lifespan / ThingDefOf.Human.race.lifeExpectancy);
+                    long relativeLifespan =(long)(p.RaceProps.lifeExpectancy / ThingDefOf.Human.race.lifeExpectancy);
                     //long relativeAge = relativeLifespan - (long)p.ageTracker.AgeBiologicalYears;
-                    int num;
+                    
+                    
+                    //Basically the same as vanilla stuff right here. Just got to get it again.
+                    int num = (reason == Pawn_AgeTracker.AgeReversalReason.Recruited ? 
+                                GetVar<IntRange>("RecruitedPawnAgeReversalDemandInDays", obj: __instance).RandomInRange : 
+                               reason == Pawn_AgeTracker.AgeReversalReason.ViaTreatment ? 60 :  
+                               GetVar<IntRange>("NewPawnAgeReversalDemandInDays", obj: __instance).RandomInRange)* 60000;
 
-                    //Basically the vanilla operations, just re-done here to make sure we're getting a totally accurate number
+                  
                     long ageReversalDemandedAtAgeTicks = GetVar<long>("ageReversalDemandedAtAgeTicks", obj: __instance);
 #if IS_DEBUG_WITH_RVC
                     Log.Message($"Expected multiplier for {p.Name}: {relativeLifespan}");
                     Log.Message($"Before patch: {p.Name}, age demanded at: {ageReversalDemandedAtAgeTicks/ 3600000L}");
 #endif
-                    if (reason == Pawn_AgeTracker.AgeReversalReason.Recruited)
-                    {
-                        num = GetVar<IntRange>("RecruitedPawnAgeReversalDemandInDays", obj: __instance).RandomInRange;
-                    }
-                    else if (reason == Pawn_AgeTracker.AgeReversalReason.ViaTreatment)
-                    {
-                        num = 60;
-                    }
-                    else
-                    {
-                        num = GetVar<IntRange>("NewPawnAgeReversalDemandInDays", obj: __instance).RandomInRange;
-                    }
 
-
-                    long num2 = num * 60000;
-
-                    long estimatedDemandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks * relativeLifespan, 72000000L)) + num2;
+                    //Here's where we do our magical stuff that scales it.
+                    long estimatedDemandAge = (Math.Max(p.ageTracker.AgeBiologicalTicks * relativeLifespan, 72000000L)) + num;
                     long demandAge = estimatedDemandAge / 3600000L < 55 ? 3600000L * 55 : estimatedDemandAge;
 #if IS_DEBUG_WITH_RVC
                     Log.Message($"{p.Name}, age demanded at: {demandAge/ 3600000L}");
