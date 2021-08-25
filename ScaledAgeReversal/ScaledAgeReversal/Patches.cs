@@ -98,10 +98,10 @@ namespace BetterAgeScaler
                     {
                         return;
                     }
+                    
                     SetVar("ageReversalDemandedAtAgeTicks", demandAge, obj: __instance);
                     SetVar("lastAgeReversalReason", reason, obj: __instance);
-
-                    //More vanilla
+                    
                     if (cancelInitialization)
                     {
                         SetVar("initializedAgeReversalDemand", false, obj: __instance);
