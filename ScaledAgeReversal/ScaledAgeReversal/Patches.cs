@@ -64,9 +64,9 @@ namespace BetterAgeScaler
 
         static PatchClass()
         {
-            Harmony h = new Harmony("Nesi.BetterAgeScaler.Patches");
+            Harmony h = new Harmony("NesiAvali.BetterBiosculptorScaler.Patches");
             h.PatchAll();
-            Log.Message("Better Age Scaler patches done successfully!");
+            Log.Message("Better Biosculptor Scaler patch done successfully!");
 
         }
 
